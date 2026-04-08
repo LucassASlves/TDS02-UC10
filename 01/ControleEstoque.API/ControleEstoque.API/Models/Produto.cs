@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using static ControleEstoque.API.Models.Pedido;
 
 namespace ControleEstoque.API.Models
 {
@@ -10,25 +8,19 @@ namespace ControleEstoque.API.Models
         [Key]
         public int Id { get; set; }
 
-
         [Required, StringLength(100)]
         public string Nome { get; set; }
 
-
-       
         [Required, Column(TypeName = "decimal(10,2)")]
-        public string Preco { get; set; }
+        public decimal Preco { get; set; }
 
         [Required]
-        public int QuantidadeEstoque { get; set; }
+        public int QauntidadeEstoque { get; set; }
 
         [ForeignKey("Fornecedor")]
-
         public int FornecedorId { get; set; }
-        public Fornecedor Fornecedor { get; set; } // Relacionamento com a entidade Fornecedor, indicando que um produto é fornecido por um fornecedor específico
+        public Fornecedor Fornecedor { get; set; }
 
-        public ICollection<ItemPedido> ItensPedido { get; set; } = new List<ItemPedido>(); // Relacionamento com a entidade ItemPedido, indicando que um produto pode estar presente em vários itens de pedido
-
-
+        public ICollection<ItemPedido> ItensPedido { get; set; } = new List<ItemPedido>();
     }
 }

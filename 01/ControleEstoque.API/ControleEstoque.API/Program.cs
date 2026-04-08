@@ -1,20 +1,26 @@
 using ControleEstoque.API.Data;
+using ControleEstoque.API.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
-builder.Services.AddDbContext<AppDbContext>(opt =>
- opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+// "Server=(localdb)\\mssqllocaldb;Database=ControleEstoqueDB;Trusted_Connection=True;"
+builder.Services.AddDbContext<AppDbContext>(opt 
+    => opt.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+// Registro do Service
+builder.Services.AddScoped<IPedidoService, PedidoService>();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

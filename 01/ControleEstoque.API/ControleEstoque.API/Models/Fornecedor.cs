@@ -3,7 +3,6 @@
 namespace ControleEstoque.API.Models
 {
     public class Fornecedor
-
     {
         [Key]
         public int Id { get; set; }
@@ -14,7 +13,6 @@ namespace ControleEstoque.API.Models
         [Required, StringLength(14)]
         public string CNPJ { get; set; }
 
-        public ICollection<Produto> Produtos { get; set; } = new List<Produto>();// Relacionamento com a entidade Produto, indicando que um fornecedor pode fornecer vários produtos
-
+        public ICollection<Produto> Produtos { get; set; }
     }
 }
