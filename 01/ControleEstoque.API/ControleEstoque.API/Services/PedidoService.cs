@@ -11,6 +11,23 @@ namespace ControleEstoque.API.Services
         {
             _context = context;
         }
+        public async Task<Pedido> CriarPedidoAsync(int clienteId, List <ItemPedido> itens)
+        {
+            var pedido = new Pedido()
+            {
+                ClienteId = clienteId,
+                DataPedido = DateTime.Now,
+                Status = "Aberto",
+                Itens = itens
+
+            };
+
+            _context.Pedidos.Add(pedido);
+            await _context.SaveChangesAsync();
+            return pedido;
+
+        }
+
         public Task<Pedido> CriarPedidoAsync(int clienteId)
         {
             throw new NotImplementedException();
@@ -33,7 +50,8 @@ namespace ControleEstoque.API.Services
 
         public Task<IEnumerable<Pedido>> ObterPedidosPorUsuarioAsync(int pedidoId)
         {
-            return _context.Pedidos.FirstOrDefaultAsync(p => p.Id == pedidoId);
+            throw new NotImplementedException();
+            // return _context.Pedidos.FirstOrDefaultAsync(p => p.Id == pedidoId);
         }
     }
 }

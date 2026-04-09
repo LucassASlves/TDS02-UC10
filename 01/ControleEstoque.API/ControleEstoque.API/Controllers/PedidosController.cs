@@ -1,4 +1,6 @@
-﻿using ControleEstoque.API.Services;
+﻿using ControleEstoque.API.DTOs;
+using ControleEstoque.API.Models;
+using ControleEstoque.API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,5 +25,28 @@ namespace ControleEstoque.API.Controllers
                 return NotFound();
             return Ok(pedido);
         }
-    }
-}
+    
+
+         [HttpPost]
+
+        public async Task<IActionResult> CriarPedido([FromBody] CriarItemPedidoDto pedido)
+        {   
+          var itensPedido = pedido.Itens.Select(i => new ItemPedido
+            {
+               Id = i.ProdutoId,
+                Quantidade = i.Quantidade
+            }).ToList();
+
+            var novoPedido = await _pedidoService.CriarPedidoAsync(pedido.ClienteId, itensPedido);
+            return Ok(pedido);
+        }
+
+
+
+
+
+
+    } 
+}  
+
+    
